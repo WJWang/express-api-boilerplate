@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const compression = require('compression');
 
 module.exports = ({
+  logger,
   containerMiddleware,
   loggerMiddleware,
   errorHandler,
@@ -34,6 +35,7 @@ module.exports = ({
     .forEach((file) => {
       const routeName = file.split('.')[0];
       /* eslint-disable */
+      logger.info(`[p ${process.pid}] Loaded [${routeName}] route...`);
       apiRouter.use(`/${routeName}`, require(`${apiFolder}/${file}`));
     });
 
