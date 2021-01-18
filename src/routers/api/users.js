@@ -6,7 +6,7 @@ const router = new Router();
 function getUser({ userService }) {
   return async (req, res) => {
     res.json({
-      test: userService.test(),
+      users: await userService.getAllUser(),
     });
   };
 }

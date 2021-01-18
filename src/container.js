@@ -26,6 +26,10 @@ const {
   UserService,
 } = require('./services');
 
+const {
+  UserRepository,
+} = require('./repositories');
+
 module.exports = async () => {
   const container = createContainer();
 
@@ -53,6 +57,11 @@ module.exports = async () => {
       errorHandler: asValue(config.production ? errorHandler : devErrorHandler),
       swaggerMiddleware: asValue([swaggerMiddleware])
     });
+
+  // Repositories
+  container.register({
+    usersRepository: asClass(UserRepository).singleton()
+  });
 
   // Database
   try {
