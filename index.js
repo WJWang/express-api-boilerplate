@@ -1,10 +1,15 @@
-const container = require('./src/container');
+const getContainer = require('./src/container');
 
-const app = container.resolve('app');
-
-app
-  .start()
-  .catch((error) => {
-    app.logger.error(error.stack);
+getContainer()
+  .then((container) => {
+    const app = container.resolve('app');
+    app
+      .start()
+      .catch((error) => {
+        app.logger.error(error.stack);
+        process.exit();
+      });
+  }).catch((err) => {
+    console.error(err);
     process.exit();
   });
